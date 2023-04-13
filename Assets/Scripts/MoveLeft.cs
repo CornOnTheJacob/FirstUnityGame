@@ -33,7 +33,7 @@ public class MoveLeft : MonoBehaviour
         }
 
         // Moves the obstacles to the left
-        if (gameObject.CompareTag("Cloud"))
+        if (gameObject.CompareTag("Cloud") || gameObject.CompareTag("Tree"))
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
         }

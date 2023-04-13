@@ -26,6 +26,7 @@ public class SpawnManager : MonoBehaviour
         Invoke("SpawnGroundObstacleRandomly", waitTime);
         Invoke("SpawnSkyObstacleRandomly", waitTime + 2);
         Invoke("SpawnCloudRandomly", waitTime - 0.75f);
+        Invoke("SpawnTreeRandomly", waitTime - 0.5f);
     }
 
     // Update is called once per frame
@@ -73,5 +74,19 @@ public class SpawnManager : MonoBehaviour
             Instantiate(obstacles[2], new Vector3(30, randNumCloudYPos, 2), obstacles[2].transform.rotation);
         }
         Invoke("SpawnCloudRandomly", randNumCloud);
+    }
+
+    // Spawn a cloud after a certain amount of time
+    private void SpawnTreeRandomly()
+    {
+        if (playerController.isAlive && startGame.gameStart)
+        {
+            randNumCloud = Random.Range(1f, 1.5f);
+            randNumCloudYPos = 1;
+
+            // Spawns a cloud
+            Instantiate(obstacles[3], new Vector3(30, randNumCloudYPos, 2), obstacles[3].transform.rotation);
+        }
+        Invoke("SpawnTreeRandomly", randNumCloud);
     }
 }

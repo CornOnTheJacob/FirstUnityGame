@@ -11,6 +11,7 @@ TagManager:
   - Cloud
   - Projectile
   - Signal
+  - Tree
   layers:
   - Default
   - TransparentFX

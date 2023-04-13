@@ -25,6 +25,7 @@ public class GetLasered : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Initializing components
         lineRenderer = gameObject.GetComponent<LineRenderer>();
         boxCollider = gameObject.GetComponent<BoxCollider>();
         audioSource = gameObject.GetComponent<AudioSource>();
