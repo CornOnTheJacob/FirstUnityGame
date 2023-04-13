@@ -25,8 +25,9 @@ public class BobObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (controller.onGround || gameObject.CompareTag("GroundObstacle"))
+        if (controller.isAlive && (controller.onGround || gameObject.CompareTag("GroundObstacle")))
         {
+            // Bobs object up and down based on the ingame time
             previousPos = transform.position;
             bobPosition = Vector3.up * Mathf.Cos(Time.time * bobSpeed) * bobStrength;
             bobPosition.x += previousPos.x;
@@ -34,6 +35,7 @@ public class BobObject : MonoBehaviour
         }
     }
 
+    // Rapid faded effect used when character is hit
     public void ChangeOpacity()
     {
         float interval = 0;

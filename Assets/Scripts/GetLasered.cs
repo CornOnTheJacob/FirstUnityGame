@@ -8,39 +8,65 @@ public class GetLasered : MonoBehaviour
     private LineRenderer lineRenderer;
     private ScoreManager scoreManager;
     private MeshRenderer rend;
+    private BoxCollider boxCollider;
+    private AudioSource audioSource;
+    private bool isAlive = true;
 
-    public ParticleSystem particle;
+    public ParticleSystem particle1;
+    public ParticleSystem particle2;
     public Material lightRed;
     public Material invisible;
     public GameObject body;
+    public AudioClip audioClip1;
+    public AudioClip audioClip2;
+    public AudioClip audioClip3;
+    public AudioClip audioClip4;
 
     // Start is called before the first frame update
     void Start()
     {
         lineRenderer = gameObject.GetComponent<LineRenderer>();
+        boxCollider = gameObject.GetComponent<BoxCollider>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         rend = body.GetComponent<MeshRenderer>();
+        scoreManager = GameObject.Find("Main Camera").GetComponent<ScoreManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        scoreManager = GameObject.Find("Main Camera").GetComponent<ScoreManager>();
+        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Signal"))
+        // On collision with signal spawns laser
+        if (collision.gameObject.CompareTag("Signal") && isAlive)
         {
+            isAlive = false;
             lineRenderer.material = lightRed;
-            Invoke("KillObject", 0.2f);
+            audioSource.pitch = 1.5f;
+            audioSource.PlayOneShot(audioClip2);
+            particle2.Play();
+            Invoke("LaserObject", 0.5f);
         }
     }
 
-    private void KillObject()
+    // Effect of a laser beam
+    private void LaserObject()
     {
-        particle.Play();
+        particle1.Play();
         scoreManager.UpdateScore(20);
         rend.material = invisible;
+        lineRenderer.material = invisible;
+        boxCollider.isTrigger = true;
+
+        // Plays sound effects
+        audioSource.pitch = 1f;
+        audioSource.PlayOneShot(audioClip1, 0.75f);
+        audioSource.PlayOneShot(audioClip2);
+        audioSource.PlayOneShot(audioClip3);
+
         Invoke("DestroyObject", 0.5f);
     }
 

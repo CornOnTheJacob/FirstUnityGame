@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 spawnLocation;
     private bool canShoot = true;
     private ScoreManager scoreManager;
-    private float deathAmount = -3099;
+    private float deathAmount = 0;
     private StartGame startGame;
     private float rateOfFire = 0.1f;
     private AudioSource playerAudio;

@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour
     private PlayerController playerController;
     private StartGame startGame;
 
-    public int score = 0;
+    public int score = 30;
     public TextMeshProUGUI scoreText;
 
     // Start is called before the first frame update
