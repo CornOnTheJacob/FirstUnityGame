@@ -14,7 +14,7 @@ public class InBounds : MonoBehaviour
     void Update()
     {
         // Destroys object when out of the game view
-        if (transform.position.x < - 10 || transform.position.x  > 30)
+        if (transform.position.x < - 20 || transform.position.x  > 30)
         {
             Destroy(gameObject);
         }

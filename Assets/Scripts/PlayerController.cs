@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 spawnLocation;
     private bool canShoot = true;
     private ScoreManager scoreManager;
-    private float deathAmount = 0;
+    private float deathAmount = -9999;
     private StartGame startGame;
     private float rateOfFire = 0.1f;
     private AudioSource playerAudio;
@@ -108,12 +108,5 @@ public class PlayerController : MonoBehaviour
     private void EnableGun()
     {
         canShoot = true;
-    }
-
-    void ChangeAlpha(Material mat, float alphaVal)
-    {
-        Color oldColor = mat.color;
-        Color newColor = new Color(oldColor.r, oldColor.g, oldColor.b, alphaVal);
-        mat.SetColor("_Color", newColor);
     }
 }

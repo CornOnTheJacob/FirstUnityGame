@@ -9,7 +9,7 @@ public class MoveLeft : MonoBehaviour
     private Vector3 bobPosition;
     private LineRenderer lineRenderer;
 
-    public float speed = 2.5f;
+    public float speed = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -45,9 +45,9 @@ public class MoveLeft : MonoBehaviour
         if (gameObject.CompareTag("GroundObstacle"))
         {
             lineRenderer.SetPosition(0, gameObject.transform.position);
-            Vector3 t = gameObject.transform.position;
-            t.y += 20;
-            lineRenderer.SetPosition(1, t);
+            Vector3 gameObjectPosition = gameObject.transform.position;
+            gameObjectPosition.y += 20;
+            lineRenderer.SetPosition(1, gameObjectPosition);
         }
     }
 }
