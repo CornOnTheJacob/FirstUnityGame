@@ -21,6 +21,7 @@ public class GetLasered : MonoBehaviour
     public AudioClip audioClip2;
     public AudioClip audioClip3;
     public AudioClip audioClip4;
+    public AudioClip audioClip5;
 
     // Start is called before the first frame update
     void Start()
@@ -46,8 +47,7 @@ public class GetLasered : MonoBehaviour
         {
             isAlive = false;
             lineRenderer.material = lightRed;
-            audioSource.pitch = 1.5f;
-            audioSource.PlayOneShot(audioClip2);
+            audioSource.PlayOneShot(audioClip5);
             particle2.Play();
             Invoke("LaserObject", 0.5f);
         }

@@ -343,6 +343,7 @@ MonoBehaviour:
   audioClip2: {fileID: 8300000, guid: 913d6445ee8cc4152a9c18da590ee203, type: 3}
   audioClip3: {fileID: 8300000, guid: e7ee25a47d63b46cdaf65480d62b405c, type: 3}
   audioClip4: {fileID: 8300000, guid: 08ab7053d586c458db3774d33c141a4b, type: 3}
+  audioClip5: {fileID: 8300000, guid: b1cc512c2e408aa42935617a7c510c6c, type: 3}
 --- !u!1 &7904038059927476853
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,6 +28,7 @@ public class SpawnManager : MonoBehaviour
         Invoke("SpawnGroundObstacleRandomly", waitTime);
         Invoke("SpawnSkyObstacleRandomly", waitTime + 2);
         Invoke("SpawnCloudRandomly", waitTime - 0.75f);
+        Invoke("SpawnCloudRandomly", waitTime - 1f);
         Invoke("SpawnTreeRandomly", waitTime - 0.5f);
     }
 
@@ -70,12 +71,12 @@ public class SpawnManager : MonoBehaviour
         if (playerController.isAlive && startGame.gameStart)
         {
             randNumItem = Random.Range(0, clouds.Length);
-            randNumInterval = Random.Range(1f, 1.5f);
-            randNumCloudYPos = Random.Range(6f, 8f);
-            randNumCloudZPos = Random.Range(2f, 3.8f);
+            randNumInterval = Random.Range(1, 3);
+            randNumCloudYPos = Random.Range(8f, 14f);
+            randNumCloudZPos = Random.Range(1f, 6f);
 
             // Spawns a cloud
-            Instantiate(clouds[randNumItem], new Vector3(30, randNumCloudYPos, randNumCloudZPos), clouds[randNumItem].transform.rotation);
+            Instantiate(clouds[randNumItem], new Vector3(60, randNumCloudYPos, randNumCloudZPos + 17), clouds[randNumItem].transform.rotation);
         }
         Invoke("SpawnCloudRandomly", randNumInterval);
     }
@@ -86,7 +87,7 @@ public class SpawnManager : MonoBehaviour
         if (playerController.isAlive && startGame.gameStart)
         {
             randNumItem = Random.Range(0, trees.Length);
-            randNumInterval = Random.Range(1f, 1.5f);
+            randNumInterval = Random.Range(0.5f, 1.25f);
 
             // Spawns a cloud
             Instantiate(trees[randNumItem], new Vector3(30, 1, 3.8f), trees[randNumItem].transform.rotation);

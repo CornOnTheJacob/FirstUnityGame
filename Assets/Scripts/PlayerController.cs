@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private float rateOfFire = 0.1f;
     private AudioSource playerAudio;
     private BobObject bobObject;
+    private MeshRenderer shootEffect;
 
     public float jumpForce = 10f;
     public float gravityModifier = 1.5f;
@@ -25,6 +26,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip crashSound;
     public AudioClip shootSound;
     public GameObject body;
+    public Material invisible;
+    public Material shootMaterial;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +38,8 @@ public class PlayerController : MonoBehaviour
         startGame = GameObject.Find("Difficulty Select").GetComponent<StartGame>();
         bobObject = GameObject.Find("Body").GetComponent<BobObject>();
         playerAudio = GetComponent<AudioSource>();
+        shootEffect = GameObject.Find("Shoot Effect").GetComponent<MeshRenderer>();
+        shootEffect.material = invisible;
 
         // Modifies gravity
         Physics.gravity *= gravityModifier;
@@ -62,6 +67,9 @@ public class PlayerController : MonoBehaviour
             Invoke("EnableGun", rateOfFire);
             scoreManager.UpdateScore(-5);
             playerAudio.PlayOneShot(shootSound, 1.0f);
+
+            shootEffect.material = shootMaterial;
+            Invoke("MakeShootEffectInvisible", 0.1f);
         }
 
         // Shoots signal
@@ -108,5 +116,10 @@ public class PlayerController : MonoBehaviour
     private void EnableGun()
     {
         canShoot = true;
+    }
+
+    private void MakeShootEffectInvisible()
+    {
+        shootEffect.material = invisible;
     }
 }
