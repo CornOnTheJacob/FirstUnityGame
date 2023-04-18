@@ -7,13 +7,13 @@ public class BobObject : MonoBehaviour
     private Vector3 previousPos;
     private Vector3 bobPosition;
     private float bobStrength = 0.05f;
-    private float bobSpeed = 16.5f;
     private PlayerController controller;
     private MeshRenderer rend;
     private float fadeSpeed = 0.05f;
 
     public Material opaque;
     public Material transparent;
+    public float bobSpeed = 16.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +25,17 @@ public class BobObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (controller.isAlive && (controller.onGround || gameObject.CompareTag("GroundObstacle")))
+        if (controller.isAlive && (controller.onGround || gameObject.CompareTag("GroundObstacle") || gameObject.CompareTag("Titan") || gameObject.CompareTag("Power Up")))
         {
             // Bobs object up and down based on the ingame time
             previousPos = transform.position;
             bobPosition = Vector3.up * Mathf.Cos(Time.time * bobSpeed) * bobStrength;
             bobPosition.x += previousPos.x;
+
+            if (gameObject.CompareTag("Power Up"))
+            {
+                bobPosition.y += previousPos.y;
+            }
             transform.position = bobPosition;
         }
     }

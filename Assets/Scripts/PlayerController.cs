@@ -9,12 +9,14 @@ public class PlayerController : MonoBehaviour
     private Vector3 spawnLocation;
     private bool canShoot = true;
     private ScoreManager scoreManager;
-    private float deathAmount = -9999;
+    private float deathAmount = 0;
     private StartGame startGame;
-    private float rateOfFire = 0.1f;
+    private float rateOfFire = 0.5f;
     private AudioSource playerAudio;
     private BobObject bobObject;
     private MeshRenderer shootEffect;
+    private AudioSource asrc;
+    private MeshRenderer bodyMesh;
 
     public float jumpForce = 10f;
     public float gravityModifier = 1.5f;
@@ -25,9 +27,11 @@ public class PlayerController : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip crashSound;
     public AudioClip shootSound;
+    public AudioClip metalPipeSound;
     public GameObject body;
     public Material invisible;
     public Material shootMaterial;
+    public bool canSignal = false;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +43,9 @@ public class PlayerController : MonoBehaviour
         bobObject = GameObject.Find("Body").GetComponent<BobObject>();
         playerAudio = GetComponent<AudioSource>();
         shootEffect = GameObject.Find("Shoot Effect").GetComponent<MeshRenderer>();
+        asrc = GameObject.Find("Main Camera").GetComponent<AudioSource>();
+        bodyMesh = GameObject.Find("Body").GetComponent<MeshRenderer>();
+
         shootEffect.material = invisible;
 
         // Modifies gravity
@@ -73,7 +80,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Shoots signal
-        if (Input.GetKeyDown(KeyCode.A) && canShoot && isAlive && startGame.gameStart)
+        if (Input.GetKeyDown(KeyCode.A) && canShoot && isAlive && startGame.gameStart && canSignal)
         {
             spawnLocation = new Vector3(1.4f, transform.position.y + .5f, -0.4f);
             Instantiate(signal, spawnLocation, signal.transform.rotation); ;
@@ -96,10 +103,16 @@ public class PlayerController : MonoBehaviour
         // When players hit an obstacle the obstacle is destroyed, the score is updated, and special effects are run
         else if (collision.gameObject.CompareTag("GroundObstacle") || collision.gameObject.CompareTag("SkyObstacle"))
         {
+            canSignal = false;
             Destroy(collision.gameObject);
-            scoreManager.UpdateScore(-10);
-            playerAudio.PlayOneShot(crashSound, 1.0f);
-            bobObject.ChangeOpacity();
+            if (collision.gameObject.CompareTag("GroundObstacle") || collision.gameObject.CompareTag("SkyObstacle"))
+            {
+                scoreManager.UpdateScore(-10);
+            }
+            else if (collision.gameObject.CompareTag("Titan"))
+            {
+                scoreManager.UpdateScore(-9999);
+            }
 
             // When player gets below a certain score they die
             if (scoreManager.score < deathAmount)
@@ -108,7 +121,23 @@ public class PlayerController : MonoBehaviour
                 scoreManager.scoreText.text = "You Died";
                 playerRb.position = new Vector3(0, 0.5f, 0);
                 playerRb.rotation = Quaternion.Euler(0, 0, 90);
+                playerAudio.PlayOneShot(metalPipeSound, 3.0f);
+                asrc.enabled = false;
             }
+            else
+            {
+                // Plays crash sound and starts player phase effect
+                playerAudio.PlayOneShot(crashSound, 1.0f);
+                bobObject.ChangeOpacity();
+            }
+        }
+        
+
+        else if (collision.gameObject.CompareTag("Power Up"))
+        {
+            Destroy(collision.gameObject);
+            bodyMesh.material = shootMaterial;
+            canSignal = true;
         }
     }
 

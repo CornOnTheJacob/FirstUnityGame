@@ -14,6 +14,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] obstacles;
     public GameObject[] clouds;
     public GameObject[] trees;
+    public GameObject[] powerUps;
     public float waitTime = 2f;
     public float difficultyModifier;
 
@@ -44,10 +45,19 @@ public class SpawnManager : MonoBehaviour
         
         if (playerController.isAlive && startGame.gameStart)
         {
+            int chance = Random.Range(1, 11);
             randNumInterval = Random.Range(2f - difficultyModifier, 3f - difficultyModifier);
 
-            // Spawns a ground obstacle
-            Instantiate(obstacles[0], new Vector3(25, 0, 0), obstacles[0].transform.rotation);
+            if (chance == 1)
+            {
+                Instantiate(powerUps[0], new Vector3(25, 1, 0), powerUps[0].transform.rotation);
+            } 
+            else
+            {
+                // Spawns a ground obstacle
+                Instantiate(obstacles[0], new Vector3(25, 0, 0), obstacles[0].transform.rotation);
+            }
+            
         }
         Invoke("SpawnGroundObstacleRandomly", randNumInterval);
     }

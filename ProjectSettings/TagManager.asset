@@ -12,6 +12,8 @@ TagManager:
   - Projectile
   - Signal
   - Tree
+  - Titan
+  - Power Up
   layers:
   - Default
   - TransparentFX

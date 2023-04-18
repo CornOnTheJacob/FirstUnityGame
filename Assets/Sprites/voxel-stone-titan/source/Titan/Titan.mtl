@@ -1,0 +1,45 @@
+newmtl Titan_1_palette
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Titan-1.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.06
+newmtl Titan_2_palette
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Titan-2.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.06
+newmtl Titan_3_palette
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Titan-3.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.06
+newmtl Titan_4_palette
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Titan-4.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.06
+newmtl palette
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Titan-0.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.06
