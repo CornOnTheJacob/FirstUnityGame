@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     public Material invisible;
     public Material shootMaterial;
     public bool canSignal = false;
+    public bool isTitan = false;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,8 @@ public class PlayerController : MonoBehaviour
         shootEffect = GameObject.Find("Shoot Effect").GetComponent<MeshRenderer>();
         asrc = GameObject.Find("Main Camera").GetComponent<AudioSource>();
         bodyMesh = GameObject.Find("Body").GetComponent<MeshRenderer>();
+        GameObject g = GameObject.Find("Titan_5").gameObject;
+        g.SetActive(false);
 
         shootEffect.material = invisible;
 
@@ -57,7 +60,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Launches player upwards when on the ground and space is pressed
-        if (Input.GetKeyDown(KeyCode.Space) && onGround && startGame.gameStart)
+        if (Input.GetKeyDown(KeyCode.Space) && onGround && startGame.gameStart && !isTitan)
         {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             onGround = false;
@@ -66,7 +69,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Creates a bullet object out of the gun
-        if (Input.GetKeyDown(KeyCode.S) && canShoot && isAlive && startGame.gameStart)
+        if (Input.GetKeyDown(KeyCode.S) && canShoot && isAlive && startGame.gameStart && !isTitan)
         {
             spawnLocation = new Vector3(1.4f, transform.position.y + .5f, -0.4f);
             Instantiate(bullet, spawnLocation, bullet.transform.rotation);
@@ -81,10 +84,10 @@ public class PlayerController : MonoBehaviour
         }
 
         // Shoots signal
-        if (Input.GetKeyDown(KeyCode.A) && canShoot && isAlive && startGame.gameStart && canSignal)
+        if (Input.GetKeyDown(KeyCode.A) && canShoot && isAlive && startGame.gameStart && canSignal && !isTitan)
         {
             spawnLocation = new Vector3(1.4f, transform.position.y + .5f, -0.4f);
-            Instantiate(signal, spawnLocation, signal.transform.rotation); ;
+            Instantiate(signal, spawnLocation, signal.transform.rotation);
 
             canShoot = false;
             Invoke("EnableGun", rateOfFire);
@@ -95,53 +98,52 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Allows the player to jump when they hit the ground
-        if (collision.gameObject.CompareTag("Ground"))
+        if (!isTitan)
         {
-            onGround = true;
-        }
-
-        // When players hit an obstacle the obstacle is destroyed, the score is updated, and special effects are run
-        else if (collision.gameObject.CompareTag("GroundObstacle") || collision.gameObject.CompareTag("SkyObstacle"))
-        {
-            canSignal = false;
-            Destroy(collision.gameObject);
-            if (collision.gameObject.CompareTag("GroundObstacle") || collision.gameObject.CompareTag("SkyObstacle"))
+            // Allows the player to jump when they hit the ground
+            if (collision.gameObject.CompareTag("Ground"))
             {
-                scoreManager.UpdateScore(-10);
-            }
-            else if (collision.gameObject.CompareTag("Titan"))
-            {
-                scoreManager.UpdateScore(-9999);
+                onGround = true;
             }
 
-            // When player gets below a certain score they die
-            if (scoreManager.score < deathAmount)
+            // When players hit an obstacle the obstacle is destroyed, the score is updated, and special effects are run
+            else if (collision.gameObject.CompareTag("GroundObstacle") || collision.gameObject.CompareTag("SkyObstacle") && !isTitan)
             {
-                isAlive = false;
-                scoreManager.scoreText.text = "You Died";
-                playerRb.position = new Vector3(0, 0.5f, 0);
-                playerRb.rotation = Quaternion.Euler(0, 0, 90);
-                playerAudio.PlayOneShot(metalPipeSound, 3.0f);
-                asrc.enabled = false;
-                bobObject.MakeOpaque();
-            }
-            else
-            {
-                // Plays crash sound and starts player phase effect
-                playerAudio.PlayOneShot(crashSound, 1.0f);
-                bobObject.ChangeOpacity();
-            }
-        }
-        
+                canSignal = false;
+                Destroy(collision.gameObject);
+                if (collision.gameObject.CompareTag("GroundObstacle") || collision.gameObject.CompareTag("SkyObstacle") && !isTitan)
+                {
+                    scoreManager.UpdateScore(-10);
+                }
 
-        else if (collision.gameObject.CompareTag("Power Up"))
-        {
-            Destroy(collision.gameObject);
-            bodyMesh.material = shootMaterial;
-            canSignal = true;
-            playerAudio.PlayOneShot(powerUpSound, 1.0f);
-            scoreManager.UpdateScore(-100);
+                // When player gets below a certain score they die
+                if (scoreManager.score < deathAmount)
+                {
+                    isAlive = false;
+                    scoreManager.scoreText.text = "You Died";
+                    playerRb.position = new Vector3(0, 0.5f, 0);
+                    playerRb.rotation = Quaternion.Euler(0, 0, 90);
+                    playerAudio.PlayOneShot(metalPipeSound, 3.0f);
+                    asrc.enabled = false;
+                    bobObject.MakeOpaque();
+                }
+                else
+                {
+                    // Plays crash sound and starts player phase effect
+                    playerAudio.PlayOneShot(crashSound, 1.0f);
+                    bobObject.ChangeOpacity();
+                }
+            }
+
+
+            else if (collision.gameObject.CompareTag("Power Up") && !isTitan)
+            {
+                Destroy(collision.gameObject);
+                bodyMesh.material = shootMaterial;
+                canSignal = true;
+                playerAudio.PlayOneShot(powerUpSound, 1.0f);
+                scoreManager.UpdateScore(-100);
+            }
         }
     }
 

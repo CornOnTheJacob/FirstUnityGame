@@ -23,23 +23,27 @@ public class MoveRight : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (gameObject.CompareTag("Projectile"))
+        if (gameObject.CompareTag("Signal") || gameObject.CompareTag("Projectile"))
         {
-            // Bullet will destroy sky obstacles
-            if (collision.gameObject.CompareTag("SkyObstacle"))
-            {
-                scoreManager.UpdateScore(10);
-            }
-        }
-        else if (gameObject.CompareTag("Signal"))
-        {
-            if (collision.gameObject.CompareTag("GroundObstacle"))
-            {
-                
-            }
-        }
 
-        // Bullet is destroyed when it hits something
-        Destroy(gameObject);
+
+            if (gameObject.CompareTag("Projectile"))
+            {
+                // Bullet will destroy sky obstacles
+                if (collision.gameObject.CompareTag("SkyObstacle"))
+                {
+                    scoreManager.UpdateScore(10);
+                }
+            }
+            else if (gameObject.CompareTag("Signal"))
+            {
+                if (collision.gameObject.CompareTag("GroundObstacle"))
+                {
+
+                }
+            }
+            // Bullet is destroyed when it hits something
+            Destroy(gameObject);
+        }
     }
 }

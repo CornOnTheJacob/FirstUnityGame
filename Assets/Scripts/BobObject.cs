@@ -33,7 +33,7 @@ public class BobObject : MonoBehaviour
             bobPosition.x += previousPos.x;
             bobPosition.z += previousPos.z;
 
-            if (gameObject.CompareTag("Power Up"))
+            if (gameObject.CompareTag("Power Up") || gameObject.CompareTag("Power Up 2"))
             {
                 bobPosition.y += previousPos.y;
             }

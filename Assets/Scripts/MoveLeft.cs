@@ -37,10 +37,6 @@ public class MoveLeft : MonoBehaviour
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
         }
-        else if (gameObject.CompareTag("Titan"))
-        {
-            transform.Translate(Vector3.back * Time.deltaTime * (speed / 5));
-        }
         else
         {
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
