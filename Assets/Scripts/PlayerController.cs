@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip crashSound;
     public AudioClip shootSound;
     public AudioClip metalPipeSound;
+    public AudioClip powerUpSound;
     public GameObject body;
     public Material invisible;
     public Material shootMaterial;
@@ -123,6 +124,7 @@ public class PlayerController : MonoBehaviour
                 playerRb.rotation = Quaternion.Euler(0, 0, 90);
                 playerAudio.PlayOneShot(metalPipeSound, 3.0f);
                 asrc.enabled = false;
+                bobObject.MakeOpaque();
             }
             else
             {
@@ -138,6 +140,8 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             bodyMesh.material = shootMaterial;
             canSignal = true;
+            playerAudio.PlayOneShot(powerUpSound, 1.0f);
+            scoreManager.UpdateScore(-100);
         }
     }
 

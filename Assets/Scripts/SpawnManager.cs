@@ -31,6 +31,7 @@ public class SpawnManager : MonoBehaviour
         Invoke("SpawnCloudRandomly", waitTime - 0.75f);
         Invoke("SpawnCloudRandomly", waitTime - 1f);
         Invoke("SpawnTreeRandomly", waitTime - 0.5f);
+        Invoke("SpawnPowerUp", 20f);
     }
 
     // Update is called once per frame
@@ -45,18 +46,10 @@ public class SpawnManager : MonoBehaviour
         
         if (playerController.isAlive && startGame.gameStart)
         {
-            int chance = Random.Range(1, 11);
             randNumInterval = Random.Range(2f - difficultyModifier, 3f - difficultyModifier);
 
-            if (chance == 1)
-            {
-                Instantiate(powerUps[0], new Vector3(25, 1, 0), powerUps[0].transform.rotation);
-            } 
-            else
-            {
-                // Spawns a ground obstacle
-                Instantiate(obstacles[0], new Vector3(25, 0, 0), obstacles[0].transform.rotation);
-            }
+            // Spawns a ground obstacle
+            Instantiate(obstacles[0], new Vector3(25, 0, 0), obstacles[0].transform.rotation);
             
         }
         Invoke("SpawnGroundObstacleRandomly", randNumInterval);
@@ -103,5 +96,15 @@ public class SpawnManager : MonoBehaviour
             Instantiate(trees[randNumItem], new Vector3(30, 1, 3.8f), trees[randNumItem].transform.rotation);
         }
         Invoke("SpawnTreeRandomly", randNumInterval);
+    }
+
+    private void SpawnPowerUp()
+    {
+        randNumInterval = Random.Range(15f + (difficultyModifier * 5), 25f + (difficultyModifier * 5));
+
+        // Spawns a basic power up
+        Instantiate(powerUps[0], new Vector3(25, 1, 0), powerUps[0].transform.rotation);
+
+        Invoke("SpawnPowerUp", randNumInterval);
     }
 }

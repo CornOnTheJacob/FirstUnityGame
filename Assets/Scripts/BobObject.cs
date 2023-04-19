@@ -31,6 +31,7 @@ public class BobObject : MonoBehaviour
             previousPos = transform.position;
             bobPosition = Vector3.up * Mathf.Cos(Time.time * bobSpeed) * bobStrength;
             bobPosition.x += previousPos.x;
+            bobPosition.z += previousPos.z;
 
             if (gameObject.CompareTag("Power Up"))
             {
@@ -58,7 +59,7 @@ public class BobObject : MonoBehaviour
         }
     }
 
-    private void MakeOpaque()
+    public void MakeOpaque()
     {
         rend.material = opaque;
     }
