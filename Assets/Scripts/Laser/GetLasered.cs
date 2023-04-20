@@ -57,7 +57,7 @@ public class GetLasered : MonoBehaviour
     private void LaserObject()
     {
         particle1.Play();
-        scoreManager.UpdateScore(20);
+        scoreManager.UpdateScore(10);
         rend.material = invisible;
         lineRenderer.material = invisible;
         boxCollider.isTrigger = true;

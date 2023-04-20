@@ -97,13 +97,14 @@ public class SpawnManager : MonoBehaviour
         }
         Invoke("SpawnTreeRandomly", randNumInterval);
     }
-
+    // Spawns a power up after a random amount of time
     private void SpawnPowerUp()
     {
+        randNumItem = Random.Range(0, powerUps.Length);
         randNumInterval = Random.Range(15f + (difficultyModifier * 5), 25f + (difficultyModifier * 5));
 
         // Spawns a basic power up
-        Instantiate(powerUps[0], new Vector3(25, 1, 0), powerUps[0].transform.rotation);
+        Instantiate(powerUps[randNumItem], new Vector3(25, 1, 0), powerUps[randNumItem].transform.rotation);
 
         Invoke("SpawnPowerUp", randNumInterval);
     }

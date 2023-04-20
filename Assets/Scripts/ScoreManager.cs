@@ -9,6 +9,7 @@ public class ScoreManager : MonoBehaviour
 {
     private PlayerController playerController;
     private StartGame startGame;
+    private AudioSource audioSource;
 
     public int score = 0;
     public TextMeshProUGUI scoreText;
@@ -19,6 +20,7 @@ public class ScoreManager : MonoBehaviour
         // Sets up the player controller class as a variable
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         startGame = GameObject.Find("Difficulty Select").GetComponent<StartGame>();
+        audioSource = GetComponent<AudioSource>();
 
         UpdateScore(0);
         InvokeRepeating("UpdateScoreEverySecond", 1, 1);
@@ -27,7 +29,22 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (score < 100)
+        {
+            audioSource.pitch = 1f;
+        }
+        else if (score < 200)
+        {
+            audioSource.pitch = 1.20f;
+        }
+        else if (score < 300)
+        {
+            audioSource.pitch = 1.50f;
+        }
+        else if (score > 1000)
+        {
+            audioSource.pitch = 1.75f;
+        }
     }
 
     // Function used to update the score throughout the program

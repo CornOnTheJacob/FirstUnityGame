@@ -14,7 +14,11 @@ public class InBounds : MonoBehaviour
     void Update()
     {
         // Destroys object when out of the game view
-        if (transform.position.x < - 50 || transform.position.x  > 65)
+        if (gameObject.CompareTag("Laser End Point") && transform.position.x > 25)
+        {
+            Destroy(gameObject);
+        }
+        else if (transform.position.x < - 50 || transform.position.x  > 65)
         {
             Destroy(gameObject);
         }

@@ -10,12 +10,18 @@ public class TitanController : MonoBehaviour
     private PlayerController playerController;
     private new BoxCollider collider;
     private StartGame startGame;
+    private float laserFireRate = 2f;
+    private AudioSource audioSource;
 
     public GameObject titanBody;
     public GameObject robotBody;
     public GameObject laser;
     public AudioClip powerUpSound;
     public AudioClip laserSound;
+    public AudioClip coolSong;
+    public AudioClip normalSong;
+    public bool canLaser = true;
+    public float titanDuration = 15f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,17 +31,20 @@ public class TitanController : MonoBehaviour
         scoreManager = GameObject.Find("Main Camera").GetComponent<ScoreManager>();
         startGame = GameObject.Find("Difficulty Select").GetComponent<StartGame>();
         collider = GetComponent<BoxCollider>();
+        audioSource = scoreManager.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Launches player upwards when on the ground and space is pressed
-        if (Input.GetKeyDown(KeyCode.Space) )
+        // Shoots laser from titans eye when space is pressed
+        if (Input.GetKeyDown(KeyCode.Space) && playerController.isTitan && canLaser)
         {
             Vector3 spawnLocation = new Vector3(4.25f, -0.36f, 0);
             Instantiate(laser, spawnLocation, laser.transform.rotation);
-            playerAudio.PlayOneShot(laserSound);
+            playerAudio.PlayOneShot(laserSound, 3f);
+            canLaser = false;
+            Invoke("EnableLaser", laserFireRate);
         }
     }
 
@@ -45,14 +54,9 @@ public class TitanController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             ChangeToTitan();
-            Invoke("ChangeToRobot", 1000f);
+            Invoke("ChangeToRobot", titanDuration);
             playerAudio.PlayOneShot(powerUpSound, 1.0f);
-            scoreManager.UpdateScore(-100);
-        }
-
-        if (playerController.isTitan)
-        {
-
+            scoreManager.UpdateScore(-20);
         }
     }
 
@@ -63,15 +67,24 @@ public class TitanController : MonoBehaviour
         titanBody.SetActive(true);
         collider.center = new Vector3(4.608548f, 29.32533f, -0.0556767f);
         collider.size = new Vector3(16.74342f, 58.98114f, 9.244705f);
+        audioSource.clip = coolSong;
+        audioSource.Play();
     }
 
     private void ChangeToRobot()
     {
         playerController.isTitan = false;
+        playerController.onGround = true;
         robotBody.SetActive(true);
         titanBody.SetActive(false);
         collider.center = new Vector3(-0.04683256f, 6.956938f, -0.0556767f);
         collider.size = new Vector3(7.432652f, 14.24435f, 9.244705f);
+        audioSource.clip = normalSong;
+        audioSource.Play();
+    }
 
+    private void EnableLaser()
+    {
+        canLaser = true;
     }
 }
