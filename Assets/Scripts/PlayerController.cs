@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     public Material shootMaterial;
     public bool canSignal = false;
     public bool isTitan = false;
+    public bool isPoweredUp;
 
     // Start is called before the first frame update
     void Start()
@@ -47,10 +48,8 @@ public class PlayerController : MonoBehaviour
         shootEffect = GameObject.Find("Shoot Effect").GetComponent<MeshRenderer>();
         asrc = GameObject.Find("Main Camera").GetComponent<AudioSource>();
         bodyMesh = GameObject.Find("Body").GetComponent<MeshRenderer>();
-        GameObject g = GameObject.Find("Titan_5").gameObject;
-        g.SetActive(false);
-
-        shootEffect.material = invisible;
+        GameObject titan = GameObject.Find("Titan_5").gameObject;
+        titan.SetActive(false);
 
         // Modifies gravity
         Physics.gravity *= gravityModifier;
@@ -106,6 +105,12 @@ public class PlayerController : MonoBehaviour
                 onGround = true;
             }
 
+            // Kills player if in contact with signal laser
+            else if (collision.gameObject.CompareTag("Laser End Point"))
+            {
+                KillPlayer();
+            }
+
             // When players hit an obstacle the obstacle is destroyed, the score is updated, and special effects are run
             else if (collision.gameObject.CompareTag("GroundObstacle") || collision.gameObject.CompareTag("SkyObstacle") && !isTitan)
             {
@@ -119,19 +124,14 @@ public class PlayerController : MonoBehaviour
                 // When player gets below a certain score they die
                 if (scoreManager.score < deathAmount)
                 {
-                    isAlive = false;
-                    scoreManager.scoreText.text = "You Died";
-                    playerRb.position = new Vector3(0, 0.5f, 0);
-                    playerRb.rotation = Quaternion.Euler(0, 0, 90);
-                    playerAudio.PlayOneShot(metalPipeSound, 3.0f);
-                    asrc.enabled = false;
-                    bobObject.MakeOpaque();
+                    KillPlayer();
                 }
                 else
                 {
                     // Plays crash sound and starts player phase effect
                     playerAudio.PlayOneShot(crashSound, 1.0f);
                     bobObject.ChangeOpacity();
+                    isPoweredUp = false;
                 }
             }
 
@@ -142,7 +142,15 @@ public class PlayerController : MonoBehaviour
                 bodyMesh.material = shootMaterial;
                 canSignal = true;
                 playerAudio.PlayOneShot(powerUpSound, 1.0f);
-                scoreManager.UpdateScore(-100);
+                if (isPoweredUp)
+                {
+                    scoreManager.UpdateScore(50);
+                }
+                else
+                {
+                    scoreManager.UpdateScore(-50);
+                }
+                isPoweredUp = true;
             }
         }
     }
@@ -156,5 +164,16 @@ public class PlayerController : MonoBehaviour
     private void MakeShootEffectInvisible()
     {
         shootEffect.material = invisible;
+    }
+
+    private void KillPlayer()
+    {
+        isAlive = false;
+        scoreManager.scoreText.text = "You Died";
+        playerRb.position = new Vector3(0, 0.5f, 0);
+        playerRb.rotation = Quaternion.Euler(0, 0, 90);
+        playerAudio.PlayOneShot(metalPipeSound, 3.0f);
+        asrc.enabled = false;
+        bobObject.MakeOpaque();
     }
 }

@@ -17,6 +17,7 @@ public class GetLasered : MonoBehaviour
     public Material lightRed;
     public Material invisible;
     public GameObject body;
+    public GameObject laserHitBox;
     public AudioClip audioClip1;
     public AudioClip audioClip2;
     public AudioClip audioClip3;
@@ -49,6 +50,7 @@ public class GetLasered : MonoBehaviour
             lineRenderer.material = lightRed;
             audioSource.PlayOneShot(audioClip5);
             particle2.Play();
+            Instantiate(laserHitBox, new Vector3(body.transform.position.x, laserHitBox.transform.position.y, 0), laserHitBox.transform.rotation);
             Invoke("LaserObject", 0.5f);
         }
     }

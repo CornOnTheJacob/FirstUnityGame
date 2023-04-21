@@ -25,7 +25,7 @@ public class BobObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (controller.isAlive && (controller.onGround || gameObject.CompareTag("GroundObstacle") || gameObject.CompareTag("Titan") || gameObject.CompareTag("Power Up")))
+        if (controller.isAlive && (controller.onGround || !gameObject.CompareTag("Player")))
         {
             // Bobs object up and down based on the ingame time
             previousPos = transform.position;

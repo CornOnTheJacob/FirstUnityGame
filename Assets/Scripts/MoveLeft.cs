@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MoveLeft : MonoBehaviour
 {
@@ -8,14 +9,17 @@ public class MoveLeft : MonoBehaviour
     private Vector3 previousPos;
     private Vector3 bobPosition;
     private LineRenderer lineRenderer;
+    private ScoreManager scoreManager;
 
     public float speed = 10f;
+    public GameObject laserDeathEffect;
 
     // Start is called before the first frame update
     void Start()
     {
         // Sets up the player controller class as a variable
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        scoreManager = GameObject.Find("Main Camera").GetComponent<ScoreManager>();
 
         if (gameObject.CompareTag("GroundObstacle"))
         {
@@ -33,9 +37,13 @@ public class MoveLeft : MonoBehaviour
         }
 
         // Moves the obstacles to the left
-        if (gameObject.CompareTag("Cloud") || gameObject.CompareTag("Tree"))
+        if (gameObject.CompareTag("Cloud") || gameObject.CompareTag("Tree") || gameObject.CompareTag("Laser End Point"))
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
+            if (gameObject.CompareTag("Laser End Point"))
+            {
+                Invoke("DestroyObject", 0.5f);
+            }
         }
         else
         {
@@ -49,5 +57,20 @@ public class MoveLeft : MonoBehaviour
             gameObjectPosition.y += 20;
             lineRenderer.SetPosition(1, gameObjectPosition);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (gameObject.CompareTag("Laser End Point") && collision.gameObject.CompareTag("SkyObstacle"))
+        {
+            scoreManager.UpdateScore(10);
+            Instantiate(laserDeathEffect, collision.transform.position, collision.transform.rotation);
+            Destroy(collision.gameObject);
+        }
+    }
+
+    private void DestroyObject()
+    {
+        Destroy(gameObject);
     }
 }

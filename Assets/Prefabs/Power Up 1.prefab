@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2992781331628700058}
   - component: {fileID: 2992781331628700064}
   - component: {fileID: 2992781331628700067}
+  - component: {fileID: 842468130}
   m_Layer: 0
   m_Name: Power Up 1
   m_TagString: Power Up
@@ -157,3 +158,15 @@ MonoBehaviour:
   opaque: {fileID: 0}
   transparent: {fileID: 0}
   bobSpeed: 16.5
+--- !u!114 &842468130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2992781331628700059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f603569e5d2441142a07ce7cd00c1f7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

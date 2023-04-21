@@ -127,6 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   opaque: {fileID: 0}
   transparent: {fileID: 0}
+  bobSpeed: 16.5
 --- !u!82 &1191144763
 AudioSource:
   m_ObjectHideFlags: 0
@@ -339,6 +340,7 @@ MonoBehaviour:
   lightRed: {fileID: 2100000, guid: 505eb8db3fd8ec9408f7f316727ad952, type: 2}
   invisible: {fileID: 2100000, guid: ab48b0eec6084d748adcacdd2f2fff6f, type: 2}
   body: {fileID: 7904038059927476853}
+  laserHitBox: {fileID: 2926350829373021657, guid: dd24e986a53df1046973a8f495efea45, type: 3}
   audioClip1: {fileID: 8300000, guid: 4bcde6de2166e41e284ec46d8a01fb90, type: 3}
   audioClip2: {fileID: 8300000, guid: 913d6445ee8cc4152a9c18da590ee203, type: 3}
   audioClip3: {fileID: 8300000, guid: e7ee25a47d63b46cdaf65480d62b405c, type: 3}
