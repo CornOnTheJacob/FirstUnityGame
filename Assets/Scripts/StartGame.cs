@@ -40,6 +40,7 @@ public class StartGame : MonoBehaviour
     void GameStart()
     {
         gameStart = true;
+        playerController.dirtSplatter.Play();
         Destroy(gameObject);
     }
 }

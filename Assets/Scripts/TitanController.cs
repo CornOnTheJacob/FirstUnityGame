@@ -12,6 +12,7 @@ public class TitanController : MonoBehaviour
     private StartGame startGame;
     private float laserFireRate = 2f;
     private AudioSource audioSource;
+    private Rigidbody playerRb;
 
     public GameObject titanBody;
     public GameObject robotBody;
@@ -26,6 +27,7 @@ public class TitanController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerRb = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
         playerAudio = GetComponent<AudioSource>();
         scoreManager = GameObject.Find("Main Camera").GetComponent<ScoreManager>();
@@ -67,6 +69,9 @@ public class TitanController : MonoBehaviour
         titanBody.SetActive(true);
         collider.center = new Vector3(4.608548f, 29.32533f, -0.0556767f);
         collider.size = new Vector3(16.74342f, 58.98114f, 9.244705f);
+        playerRb.velocity = Vector3.zero;
+        gameObject.transform.position = new Vector3(0, 0.025f, 0);
+
         audioSource.clip = coolSong;
         audioSource.Play();
     }

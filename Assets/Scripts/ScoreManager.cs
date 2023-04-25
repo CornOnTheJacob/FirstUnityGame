@@ -12,7 +12,9 @@ public class ScoreManager : MonoBehaviour
     private AudioSource audioSource;
 
     public int score = 0;
+    public int time = 0;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI timeText;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,7 @@ public class ScoreManager : MonoBehaviour
 
         UpdateScore(0);
         InvokeRepeating("UpdateScoreEverySecond", 1, 1);
+        InvokeRepeating("UpdateTimeEverySecond", 1, 1);
     }
 
     // Update is called once per frame
@@ -61,6 +64,19 @@ public class ScoreManager : MonoBehaviour
         {
             score += 1;
             scoreText.text = "Score: " + score.ToString();
+        }
+        else if (!playerController.isAlive)
+        {
+            CancelInvoke();
+        }
+    }
+
+    private void UpdateTimeEverySecond()
+    {
+        if (playerController.isAlive && startGame.gameStart)
+        {
+            time += 1;
+            timeText.text = "Time: " + time.ToString();
         }
         else if (!playerController.isAlive)
         {

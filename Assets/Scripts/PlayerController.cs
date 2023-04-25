@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip metalPipeSound;
     public AudioClip powerUpSound;
     public GameObject body;
+    public ParticleSystem dirtSplatter;
     public Material invisible;
     public Material shootMaterial;
     public bool canSignal = false;
@@ -53,6 +54,8 @@ public class PlayerController : MonoBehaviour
 
         // Modifies gravity
         Physics.gravity *= gravityModifier;
+
+        dirtSplatter.Stop();
     }
 
     // Update is called once per frame
@@ -65,6 +68,7 @@ public class PlayerController : MonoBehaviour
             onGround = false;
 
             playerAudio.PlayOneShot(jumpSound, 1.0f);
+            dirtSplatter.Stop();
         }
 
         // Creates a bullet object out of the gun
@@ -93,6 +97,11 @@ public class PlayerController : MonoBehaviour
             scoreManager.UpdateScore(-5);
             playerAudio.PlayOneShot(shootSound, 1.0f);
         }
+
+        if (isPoweredUp && bodyMesh.material != shootMaterial)
+        {
+            bodyMesh.material = shootMaterial;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -100,9 +109,10 @@ public class PlayerController : MonoBehaviour
         if (!isTitan)
         {
             // Allows the player to jump when they hit the ground
-            if (collision.gameObject.CompareTag("Ground"))
+            if (collision.gameObject.CompareTag("Ground") && startGame.gameStart && isAlive)
             {
                 onGround = true;
+                dirtSplatter.Play();
             }
 
             // Kills player if in contact with signal laser
@@ -169,11 +179,13 @@ public class PlayerController : MonoBehaviour
     private void KillPlayer()
     {
         isAlive = false;
+        isPoweredUp = false;
         scoreManager.scoreText.text = "You Died";
         playerRb.position = new Vector3(0, 0.5f, 0);
         playerRb.rotation = Quaternion.Euler(0, 0, 90);
         playerAudio.PlayOneShot(metalPipeSound, 3.0f);
         asrc.enabled = false;
         bobObject.MakeOpaque();
+        dirtSplatter.Stop();
     }
 }
