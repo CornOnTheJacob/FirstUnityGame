@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TitanLaser : MonoBehaviour
 {
-    private Vector3 eyePos = new Vector3(2.15f, 7.197f, -0.434f);
     private LineRenderer lineRend;
     private ScoreManager scoreManager;
     private PlayerController playerController;
+    private Vector3 eyePos = new Vector3(2.15f, 7.197f, -0.434f);
 
     public GameObject deathEffect;
 

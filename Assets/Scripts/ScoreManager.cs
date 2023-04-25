@@ -11,10 +11,10 @@ public class ScoreManager : MonoBehaviour
     private StartGame startGame;
     private AudioSource audioSource;
 
-    public int score = 0;
-    public int time = 0;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timeText;
+    public int score = 0;
+    public int time = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +24,7 @@ public class ScoreManager : MonoBehaviour
         startGame = GameObject.Find("Difficulty Select").GetComponent<StartGame>();
         audioSource = GetComponent<AudioSource>();
 
+        // Runs score update functions
         UpdateScore(0);
         InvokeRepeating("UpdateScoreEverySecond", 1, 1);
         InvokeRepeating("UpdateTimeEverySecond", 1, 1);
@@ -32,6 +33,7 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Changes pitch and tempo of music based on the players score
         if (score < 100)
         {
             audioSource.pitch = 1f;
@@ -71,6 +73,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    // Updates timer
     private void UpdateTimeEverySecond()
     {
         if (playerController.isAlive && startGame.gameStart)

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BobObject : MonoBehaviour
 {
-    private Vector3 previousPos;
-    private Vector3 bobPosition;
-    private float bobStrength = 0.05f;
     private PlayerController controller;
     private MeshRenderer rend;
+    private Vector3 previousPos;
+    private Vector3 bobPosition;
     private float fadeSpeed = 0.05f;
+    private float bobStrength = 0.05f;
 
     public Material opaque;
     public Material transparent;

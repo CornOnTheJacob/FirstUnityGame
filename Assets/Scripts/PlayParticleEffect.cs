@@ -9,12 +9,7 @@ public class PlayParticleEffect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Plays particles
         particle.Play();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

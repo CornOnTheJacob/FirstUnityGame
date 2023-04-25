@@ -5959,10 +5959,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca4485a5b2bd4e1428f76382aad16279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
-  time: 0
   scoreText: {fileID: 227755655}
   timeText: {fileID: 1981946468}
+  score: 0
+  time: 0
 --- !u!82 &963194230
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6394,21 +6394,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab66575081dcac448e2502721e52fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 10
-  gravityModifier: 1.5
   bullet: {fileID: 467368793604608828, guid: 483b98b02e1450442b64e7e2131d2f90, type: 3}
   signal: {fileID: 884902890486458789, guid: 09edecff19af21a46a6d5998ea265350, type: 3}
-  isAlive: 1
-  onGround: 1
+  body: {fileID: 26629410}
   jumpSound: {fileID: 8300000, guid: 0f7d0b7c3397f4dac91f20e8a77d2d57, type: 3}
   crashSound: {fileID: 8300000, guid: 4bcde6de2166e41e284ec46d8a01fb90, type: 3}
   shootSound: {fileID: 8300000, guid: 113ee460fadc340e4957a7404a9fbb27, type: 3}
   metalPipeSound: {fileID: 8300000, guid: 6a4ac1c5d13aa9f408fc5a9238de90d9, type: 3}
   powerUpSound: {fileID: 8300000, guid: 86c275ede3f7e0c408fb20f6d3bd4c29, type: 3}
-  body: {fileID: 26629410}
-  dirtSplatter: {fileID: 2126712368}
   invisible: {fileID: 2100000, guid: ab48b0eec6084d748adcacdd2f2fff6f, type: 2}
   shootMaterial: {fileID: -8469494145858465668, guid: 7795d2012252c424a8be4a3e55f69451, type: 3}
+  dirtSplatter: {fileID: 2126712368}
+  jumpForce: 10
+  gravityModifier: 1.5
+  isAlive: 1
+  onGround: 1
   canSignal: 0
   isTitan: 0
   isPoweredUp: 0
@@ -6561,8 +6561,8 @@ MonoBehaviour:
   laserSound: {fileID: 8300000, guid: b1cc512c2e408aa42935617a7c510c6c, type: 3}
   coolSong: {fileID: 8300000, guid: d70999ba737574c808b1d37cbdca0c37, type: 3}
   normalSong: {fileID: 8300000, guid: 606910ec401804eb09925f0d57909c04, type: 3}
-  canLaser: 1
   titanDuration: 15
+  canLaser: 1
 --- !u!4 &1536973465 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 72578294a81b7874fbf8aa1584a967d5, type: 3}

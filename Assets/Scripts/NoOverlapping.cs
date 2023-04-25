@@ -5,20 +5,10 @@ using UnityEngine;
 public class NoOverlapping : MonoBehaviour
 {
     private Vector3 pos;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
+        // Moves objects out of ground obstacles if the over lap
         if (collision.gameObject.CompareTag("GroundObstacle"))
         {
             pos = collision.gameObject.transform.position;

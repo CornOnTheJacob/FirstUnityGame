@@ -6,10 +6,10 @@ public class MoveRight : MonoBehaviour
 {
     private BoxCollider objectCollider;
     private ScoreManager scoreManager;
+    private PlayerController playerController;
+    private Vector3 pos;
     private float speed = 20f;
     private bool stuck = false;
-    private Vector3 pos;
-    private PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
@@ -39,34 +39,31 @@ public class MoveRight : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (gameObject.CompareTag("Signal") || gameObject.CompareTag("Projectile"))
+        if (gameObject.CompareTag("Projectile"))
         {
-
-
-            if (gameObject.CompareTag("Projectile"))
+            // Bullet will destroy sky obstacles
+            if (collision.gameObject.CompareTag("SkyObstacle"))
             {
-                // Bullet will destroy sky obstacles
-                if (collision.gameObject.CompareTag("SkyObstacle"))
-                {
-                    scoreManager.UpdateScore(10);
-                }
-                // Bullet is destroyed when it hits something
-                Destroy(gameObject);
+                scoreManager.UpdateScore(10);
             }
-            else if (gameObject.CompareTag("Signal"))
+            // Bullet is destroyed when it hits something
+            Destroy(gameObject);
+        }
+        else if (gameObject.CompareTag("Signal"))
+        {
+            // Sticks the signal to the obstacle
+            if (collision.gameObject.CompareTag("GroundObstacle"))
             {
-                if (collision.gameObject.CompareTag("GroundObstacle"))
-                {
-                    stuck = true;
-                    pos = gameObject.transform.position;
-                    pos.x = collision.transform.position.x - 0.42f;
-                    gameObject.transform.position = pos;
-                    Invoke("DestroyObject", 0.5f);
-                }
+                stuck = true;
+                pos = gameObject.transform.position;
+                pos.x = collision.transform.position.x - 0.42f;
+                gameObject.transform.position = pos;
+                Invoke("DestroyObject", 0.5f);
             }
         }
     }
 
+    // Destroys the game object
     private void DestroyObject()
     {
         Destroy(gameObject);

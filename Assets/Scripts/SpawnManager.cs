@@ -5,11 +5,11 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     private PlayerController playerController;
+    private StartGame startGame;
     private int randNumItem;
     private float randNumInterval;
     private float randNumCloudYPos;
     private float randNumCloudZPos;
-    private StartGame startGame;
 
     public GameObject[] obstacles;
     public GameObject[] clouds;
@@ -21,23 +21,17 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Sets up the player controller class as a variable
+        // Sets up the player controller class  and start game class as variables
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         startGame = GameObject.Find("Difficulty Select").GetComponent<StartGame>();
 
-        // Continuosly spawns enemies
+        // Continuosly spawns enemies, background objects, and powerups
         Invoke("SpawnGroundObstacleRandomly", waitTime);
         Invoke("SpawnSkyObstacleRandomly", waitTime + 2);
         Invoke("SpawnCloudRandomly", waitTime - 0.75f);
         Invoke("SpawnCloudRandomly", waitTime - 1f);
         Invoke("SpawnTreeRandomly", waitTime - 0.5f);
         Invoke("SpawnPowerUp", 20f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     // Spawn a ground obstacle after a certain amount of time

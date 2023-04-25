@@ -8,11 +8,11 @@ public class TitanController : MonoBehaviour
     private ScoreManager scoreManager;
     private AudioSource playerAudio;
     private PlayerController playerController;
-    private new BoxCollider collider;
     private StartGame startGame;
-    private float laserFireRate = 2f;
     private AudioSource audioSource;
     private Rigidbody playerRb;
+    private new BoxCollider collider;
+    private float laserFireRate = 2f;
 
     public GameObject titanBody;
     public GameObject robotBody;
@@ -21,18 +21,20 @@ public class TitanController : MonoBehaviour
     public AudioClip laserSound;
     public AudioClip coolSong;
     public AudioClip normalSong;
-    public bool canLaser = true;
     public float titanDuration = 15f;
+    public bool canLaser = true;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        // Initiates objects
         playerRb = GetComponent<Rigidbody>();
+        collider = GetComponent<BoxCollider>();
         playerController = GetComponent<PlayerController>();
         playerAudio = GetComponent<AudioSource>();
         scoreManager = GameObject.Find("Main Camera").GetComponent<ScoreManager>();
         startGame = GameObject.Find("Difficulty Select").GetComponent<StartGame>();
-        collider = GetComponent<BoxCollider>();
         audioSource = scoreManager.GetComponent<AudioSource>();
     }
 
@@ -52,6 +54,7 @@ public class TitanController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // When player gets a power up the becomes an ancient stone titan and can shoot laser eyes
         if (collision.gameObject.CompareTag("Power Up 2"))
         {
             Destroy(collision.gameObject);
@@ -62,6 +65,7 @@ public class TitanController : MonoBehaviour
         }
     }
 
+    // Makes the player look like a titan and allows for titan abilities
     private void ChangeToTitan()
     {
         playerController.isTitan = true;
@@ -69,13 +73,13 @@ public class TitanController : MonoBehaviour
         titanBody.SetActive(true);
         collider.center = new Vector3(4.608548f, 29.32533f, -0.0556767f);
         collider.size = new Vector3(16.74342f, 58.98114f, 9.244705f);
-        playerRb.velocity = Vector3.zero;
         gameObject.transform.position = new Vector3(0, 0.025f, 0);
-
+        playerRb.velocity = Vector3.zero;
         audioSource.clip = coolSong;
         audioSource.Play();
     }
 
+    // Makes the player look like a little robot and allows for robot abilities
     private void ChangeToRobot()
     {
         playerController.isTitan = false;
@@ -88,6 +92,7 @@ public class TitanController : MonoBehaviour
         audioSource.Play();
     }
 
+    // Allows player to shoot laser again
     private void EnableLaser()
     {
         canLaser = true;

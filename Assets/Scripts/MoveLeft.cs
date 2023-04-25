@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 public class MoveLeft : MonoBehaviour
 {
     private PlayerController playerController;
-    private Vector3 previousPos;
-    private Vector3 bobPosition;
     private LineRenderer lineRenderer;
     private ScoreManager scoreManager;
+    private Vector3 previousPos;
+    private Vector3 bobPosition;
 
     public float speed = 10f;
     public GameObject laserDeathEffect;
@@ -50,6 +50,7 @@ public class MoveLeft : MonoBehaviour
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
         }
 
+        // Sets knights laser position to match its position
         if (gameObject.CompareTag("GroundObstacle"))
         {
             lineRenderer.SetPosition(0, gameObject.transform.position);
@@ -61,6 +62,7 @@ public class MoveLeft : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // Kills bird if it is in contact with laser
         if (gameObject.CompareTag("Laser End Point") && collision.gameObject.CompareTag("SkyObstacle"))
         {
             scoreManager.UpdateScore(10);
@@ -69,6 +71,7 @@ public class MoveLeft : MonoBehaviour
         }
     }
 
+    // Destroys game object
     private void DestroyObject()
     {
         Destroy(gameObject);
