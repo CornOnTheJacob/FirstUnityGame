@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
 using System;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -79,7 +80,17 @@ public class ScoreManager : MonoBehaviour
         if (playerController.isAlive && startGame.gameStart)
         {
             time += 1;
-            timeText.text = "Time: " + time.ToString();
+            int minutes = time / 60;
+            int seconds = time % 60;
+
+            if (seconds < 10)
+            {
+                timeText.text = "Time: " + minutes.ToString() + ":0" + seconds.ToString();
+            }
+            else
+            {
+                timeText.text = "Time: " + minutes.ToString() + ":" + seconds.ToString();
+            }
         }
         else if (!playerController.isAlive)
         {

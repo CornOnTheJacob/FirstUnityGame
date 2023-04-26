@@ -10,6 +10,7 @@ public class SpawnManager : MonoBehaviour
     private float randNumInterval;
     private float randNumCloudYPos;
     private float randNumCloudZPos;
+    private bool signalPowerup = true;
 
     public GameObject[] obstacles;
     public GameObject[] clouds;
@@ -94,7 +95,17 @@ public class SpawnManager : MonoBehaviour
     // Spawns a power up after a random amount of time
     private void SpawnPowerUp()
     {
-        randNumItem = Random.Range(0, powerUps.Length);
+        if (signalPowerup)
+        {
+            randNumItem = 0;
+            signalPowerup = false;
+        }
+        else
+        {
+            randNumItem = 1;
+            signalPowerup = true;
+        }
+        //randNumItem = Random.Range(0, powerUps.Length);
         randNumInterval = Random.Range(15f + (difficultyModifier * 5), 25f + (difficultyModifier * 5));
 
         // Spawns a basic power up

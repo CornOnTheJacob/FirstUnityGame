@@ -198,6 +198,5 @@ public class PlayerController : MonoBehaviour
         playerAudio.PlayOneShot(metalPipeSound, 4.0f);
         bobObject.MakeOpaque();
         dirtSplatter.Stop();
-        scoreManager.scoreText.text = "You Died";
     }
 }
