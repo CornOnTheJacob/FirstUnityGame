@@ -11,6 +11,8 @@ public class ScoreManager : MonoBehaviour
     private PlayerController playerController;
     private StartGame startGame;
     private AudioSource audioSource;
+    private bool resetTime = false;
+    private bool resetScore = false;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timeText;
@@ -35,7 +37,7 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
         // Changes pitch and tempo of music based on the players score
-        if (score < 100)
+        if (score < 100 || resetScore)
         {
             audioSource.pitch = 1f;
         }
@@ -65,12 +67,18 @@ public class ScoreManager : MonoBehaviour
     {
         if (playerController.isAlive && startGame.gameStart)
         {
+            if (resetScore)
+            {
+                score = 0;
+                resetScore = false;
+            }
             score += 1;
             scoreText.text = "Score: " + score.ToString();
         }
         else if (!playerController.isAlive)
         {
-            CancelInvoke();
+            resetScore = true;
+            //CancelInvoke();
         }
     }
 
@@ -79,6 +87,11 @@ public class ScoreManager : MonoBehaviour
     {
         if (playerController.isAlive && startGame.gameStart)
         {
+            if (resetTime)
+            {
+                time = 0;
+                resetTime = false;
+            }
             time += 1;
             int minutes = time / 60;
             int seconds = time % 60;
@@ -94,7 +107,8 @@ public class ScoreManager : MonoBehaviour
         }
         else if (!playerController.isAlive)
         {
-            CancelInvoke();
+            resetTime = true;
+            //CancelInvoke();
         }
     }
 }

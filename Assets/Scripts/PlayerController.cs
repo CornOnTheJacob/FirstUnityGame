@@ -107,6 +107,16 @@ public class PlayerController : MonoBehaviour
         {
             bodyMesh.material = shootMaterial;
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            startGame.gameStart = true;
+            isAlive = true;
+            asrc.enabled = true;
+
+            playerRb.position = new Vector3(0, 0, 0);
+            playerRb.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
