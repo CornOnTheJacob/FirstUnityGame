@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -45,7 +46,7 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
         scoreManager = GameObject.Find("Main Camera").GetComponent<ScoreManager>();
-        startGame = GameObject.Find("Difficulty Select").GetComponent<StartGame>();
+        startGame = GameObject.Find("Instructions Background").GetComponent<StartGame>();
         bobObject = GameObject.Find("Body").GetComponent<BobObject>();
         shootEffect = GameObject.Find("Shoot Effect").GetComponent<MeshRenderer>();
         asrc = GameObject.Find("Main Camera").GetComponent<AudioSource>();
@@ -108,14 +109,10 @@ public class PlayerController : MonoBehaviour
             bodyMesh.material = shootMaterial;
         }
 
+        // Restarts the game
         if (Input.GetKeyDown(KeyCode.R))
         {
-            startGame.gameStart = true;
-            isAlive = true;
-            asrc.enabled = true;
-
-            playerRb.position = new Vector3(0, 0, 0);
-            playerRb.rotation = Quaternion.Euler(0, 0, 0);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

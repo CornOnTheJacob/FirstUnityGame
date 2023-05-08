@@ -24,7 +24,7 @@ public class ScoreManager : MonoBehaviour
     {
         // Sets up the player controller class as a variable
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        startGame = GameObject.Find("Difficulty Select").GetComponent<StartGame>();
+        startGame = GameObject.Find("Instructions Background").GetComponent<StartGame>();
         audioSource = GetComponent<AudioSource>();
 
         // Runs score update functions

@@ -41,6 +41,6 @@ public class StartGame : MonoBehaviour
     {
         gameStart = true;
         playerController.dirtSplatter.Play();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

@@ -11,6 +11,7 @@ public class SpawnManager : MonoBehaviour
     private float randNumCloudYPos;
     private float randNumCloudZPos;
     private bool signalPowerup = true;
+    private ScoreManager scoreManager;
 
     public GameObject[] obstacles;
     public GameObject[] clouds;
@@ -24,7 +25,8 @@ public class SpawnManager : MonoBehaviour
     {
         // Sets up the player controller class  and start game class as variables
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        startGame = GameObject.Find("Difficulty Select").GetComponent<StartGame>();
+        scoreManager = GameObject.Find("Main Camera").GetComponent<ScoreManager>();
+        startGame = GameObject.Find("Instructions Background").GetComponent<StartGame>();
 
         // Continuosly spawns enemies, background objects, and powerups
         Invoke("SpawnGroundObstacleRandomly", waitTime);
@@ -42,6 +44,10 @@ public class SpawnManager : MonoBehaviour
         if (playerController.isAlive && startGame.gameStart)
         {
             randNumInterval = Random.Range(2f - difficultyModifier, 3f - difficultyModifier);
+            if (scoreManager.score > 100)
+            {
+                randNumInterval -= 0.5f;
+            }
 
             // Spawns a ground obstacle
             Instantiate(obstacles[0], new Vector3(25, 0, 0), obstacles[0].transform.rotation);
@@ -56,6 +62,10 @@ public class SpawnManager : MonoBehaviour
         if (playerController.isAlive && startGame.gameStart)
         {
             randNumInterval = Random.Range(3f - difficultyModifier, 6f - difficultyModifier);
+            if (scoreManager.score > 500)
+            {
+                randNumInterval -= 0.5f;
+            }
 
             // Spawns a sky obstacle
             Instantiate(obstacles[1], new Vector3(30, 3, 0), obstacles[1].transform.rotation);
@@ -95,22 +105,25 @@ public class SpawnManager : MonoBehaviour
     // Spawns a power up after a random amount of time
     private void SpawnPowerUp()
     {
-        if (signalPowerup)
+        if (playerController.isAlive && startGame.gameStart)
         {
-            randNumItem = 0;
-            signalPowerup = false;
-        }
-        else
-        {
-            randNumItem = 1;
-            signalPowerup = true;
-        }
-        //randNumItem = Random.Range(0, powerUps.Length);
-        randNumInterval = Random.Range(15f + (difficultyModifier * 5), 25f + (difficultyModifier * 5));
+            if (signalPowerup)
+            {
+                randNumItem = 0;
+                signalPowerup = false;
+            }
+            else
+            {
+                randNumItem = 1;
+                signalPowerup = true;
+            }
+            //randNumItem = Random.Range(0, powerUps.Length);
+            randNumInterval = Random.Range(15f + (difficultyModifier * 5), 25f + (difficultyModifier * 5));
 
-        // Spawns a basic power up
-        Instantiate(powerUps[randNumItem], new Vector3(25, 1, 0), powerUps[randNumItem].transform.rotation);
+            // Spawns a basic power up
+            Instantiate(powerUps[randNumItem], new Vector3(25, 1, 0), powerUps[randNumItem].transform.rotation);
 
+        }
         Invoke("SpawnPowerUp", randNumInterval);
     }
 }
