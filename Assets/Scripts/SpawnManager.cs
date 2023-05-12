@@ -44,7 +44,11 @@ public class SpawnManager : MonoBehaviour
         if (playerController.isAlive && startGame.gameStart)
         {
             randNumInterval = Random.Range(2f - difficultyModifier, 3f - difficultyModifier);
-            if (scoreManager.score > 100)
+            if (scoreManager.score > 400)
+            {
+                randNumInterval -= 0.2f;
+            }
+            else if (scoreManager.score > 800)
             {
                 randNumInterval -= 0.5f;
             }

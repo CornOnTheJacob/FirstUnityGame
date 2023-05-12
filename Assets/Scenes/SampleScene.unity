@@ -252,7 +252,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -178.23865, y: 161.78918}
+  m_AnchoredPosition: {x: -178.23865, y: 177.35986}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &52140244
@@ -275,23 +275,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Dodge Objects
-
-    [1] Normal
-
-    [2] Hard
-
-
-    [S] shoot (shoot birds
-    for points)
-
-    [SPACEBAR] jump (avoid knights)
-
-    [A] with power up can kill
-    knights
-
-
-    [R] to RESTART'
+  m_text: "Dodge Objects\nBy Jacob Mousser\n[1] Normal\n[2] Hard\n[SPACEBAR] jump
+    (avoid knights)\n[R] to RESTART\n[A] with power up can kill knights\n[S] shoot
+    (shoot birds for points) \n\nLOSE 5 POINTS WHEN SHOOT"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5121,8 +5107,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28.238586, y: 16.2108}
-  m_SizeDelta: {x: 564.4774, y: 409.8636}
+  m_AnchoredPosition: {x: 28.238586, y: 0.6401}
+  m_SizeDelta: {x: 564.4774, y: 441.0049}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &89600069
 MonoBehaviour:

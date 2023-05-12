@@ -1,3 +1,6 @@
+// Jacob Mousser
+// Computer Programming and Mobile App Design
+// 5/12/2023
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,7 +57,7 @@ public class PlayerController : MonoBehaviour
         titan = GameObject.Find("Titan_5").gameObject;
 
         // Modifies gravity
-        Physics.gravity *= gravityModifier;
+        Physics.gravity = new Vector3(0, -14.715f, 0);
 
         // Hides from camera
         titan.SetActive(false);
